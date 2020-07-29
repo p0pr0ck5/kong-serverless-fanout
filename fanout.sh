@@ -1,6 +1,5 @@
 #!/bin/sh
 
-set -x
-
+cp ./config.yml.tpl ./config.yml
 F=$(cat fanout.lua | sed 's/^/          /') \
-  perl -i.bak -pe 's/\{fanout\}/$ENV{F}/' ./config.yml
+  perl -i -pe 's/\{fanout\}/$ENV{F}/' ./config.yml

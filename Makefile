@@ -13,4 +13,4 @@ down: clean
 	docker-compose down
 
 clean:
-	mv ./config.yml.bak ./config.yml
+	rm -f ./config.yml
