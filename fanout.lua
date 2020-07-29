@@ -38,4 +38,7 @@ for i, ans in ipairs(answers) do
   end
   t[#t+1] = {node = ans.address, response = b, err = err}
 end
-ngx.print(require("cjson").encode(t))
+ngx.ctx.delayed_response = {
+  status_code = 200,
+  content = t,
+}
