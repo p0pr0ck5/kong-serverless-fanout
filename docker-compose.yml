@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  httpbin:
+    image: kennethreitz/httpbin
+    ports:
+      - 80
+
+  kong:
+    image: kong
+    container_name: kong
+    ports:
+      - 8000:8000
+      - 8001:8001
+    volumes:
+      - ${DIR}:/data
+    environment:
+      - KONG_DATABASE=off
+      - KONG_DECLARATIVE_CONFIG=/data/config.yml
+      - KONG_LOG_LEVEL=debug
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001
