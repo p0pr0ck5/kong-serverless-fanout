@@ -27,8 +27,77 @@ Nginx proxy_pass handler.
 $ make
 ```
 
+## Usage
+
+The function will wrap responses in JSON, as an array of objects:
+
+```json
+[
+  {
+    "response": {...},
+    "node": "...",
+    "err": "...",
+  }...
+]
+```
+
+```bash
+$ curl -s localhost:8000/get?foo=bar | jq
+[
+  {
+    "response": {
+      "origin": "192.168.80.4",
+      "headers": {
+        "User-Agent": "curl/7.58.0",
+        "Accept": "*/*",
+        "Host": "localhost:8000"
+      },
+      "url": "http://localhost:8000/get?foo=bar",
+      "args": {
+        "foo": "bar"
+      }
+    },
+    "node": "192.168.80.3"
+  },
+  {
+    "response": {
+      "origin": "192.168.80.4",
+      "headers": {
+        "User-Agent": "curl/7.58.0",
+        "Accept": "*/*",
+        "Host": "localhost:8000"
+      },
+      "url": "http://localhost:8000/get?foo=bar",
+      "args": {
+        "foo": "bar"
+      }
+    },
+    "node": "192.168.80.5"
+  },
+  {
+    "response": {
+      "origin": "192.168.80.4",
+      "headers": {
+        "User-Agent": "curl/7.58.0",
+        "Accept": "*/*",
+        "Host": "localhost:8000"
+      },
+      "url": "http://localhost:8000/get?foo=bar",
+      "args": {
+        "foo": "bar"
+      }
+    },
+    "node": "192.168.80.2"
+  }
+]
+```
+
 ## Teardown
 
 ```bash
 $ make down
 ```
+
+## Notes
+
+Don't use this.

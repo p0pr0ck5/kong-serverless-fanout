@@ -29,7 +29,11 @@ for i, ans in ipairs(answers) do
     if not res then
       ngx.log(ngx.WARN, err)
     else
-      b = require("cjson").decode(res:read_body())
+      local body = res:read_body()
+      b, err = require("cjson.safe").decode(body)
+      if not b then
+        b = body
+      end
     end
   end
   t[#t+1] = {node = ans.address, response = b, err = err}
